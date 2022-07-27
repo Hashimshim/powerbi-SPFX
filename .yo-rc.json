@@ -1,0 +1,16 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "version": "1.15.0",
+    "libraryName": "my-custom-power-bi",
+    "libraryId": "fbfaad24-c4ea-478c-b721-7682f48b22aa",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "my-custom-power-bi",
+    "solutionShortDescription": "my-custom-power-bi description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}

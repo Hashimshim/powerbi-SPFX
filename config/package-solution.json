@@ -1,0 +1,58 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "my-custom-power-bi-client-side-solution",
+    "id": "fbfaad24-c4ea-478c-b721-7682f48b22aa",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "webApiPermissionRequests": [
+      {
+        "resource": "Power BI Service",
+        "scope": "Group.Read.All"
+      },
+      {
+        "resource": "Power BI Service",
+        "scope": "Dataset.Read.All"
+      },
+      {
+        "resource": "Power BI Service",
+        "scope": "Report.Read.All"
+      },
+      {
+        "resource": "Power BI Service",
+        "scope": "Dashboard.Read.All"
+      }
+    ],
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.15.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "my-custom-power-bi description"
+      },
+      "longDescription": {
+        "default": "my-custom-power-bi description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "my-custom-power-bi Feature",
+        "description": "The feature that activates elements of the my-custom-power-bi solution.",
+        "id": "4911484b-00f8-4324-b4e3-aab24ca4adaf",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/my-custom-power-bi.sppkg"
+  }
+}
