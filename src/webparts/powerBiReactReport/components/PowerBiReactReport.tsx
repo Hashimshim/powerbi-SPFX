@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/typedef */
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/member-ordering */
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
@@ -9,18 +10,28 @@ import { IPowerBiReactReportProps, IPowerBiReactReportState } from './IPowerBiRe
 import { PowerBiWorkspace, PowerBiReport } from './../../../models/PowerBiModels';
 import { PowerBiService } from './../../../services/PowerBiService';
 import { PowerBiEmbeddingService } from './../../../services/PowerBiEmbeddingService';
+/// Trying to get list items ******
+import { spfi, SPFx,SPFI } from "@pnp/sp";
+import "@pnp/sp/webs";
+import "@pnp/sp/lists";
+import "@pnp/sp/items";
+import "@pnp/sp/items/get-all";
+
+import {DetailsListDocumentsExample}from './DetailList'
 
 export default class PowerBiReactReport extends React.Component<IPowerBiReactReportProps, IPowerBiReactReportState> {
 
   constructor(props: IPowerBiReactReportProps) {
     super(props);
+  
   }
+ // const [selectedKeys, setSelectedKeys] = React.useState<string[]>([]);
 
   public state: IPowerBiReactReportState = {
     workspaceId: this.props.defaultWorkspaceId,
     reportId: this.props.defaultReportId,
     widthToHeight: this.props.defaultWidthToHeight,
-    loading: false
+    loading: false,
   };
 
   private reportCannotRender(): Boolean {
@@ -29,11 +40,12 @@ export default class PowerBiReactReport extends React.Component<IPowerBiReactRep
   }
 
   public render(): React.ReactElement<IPowerBiReactReportProps> {
-
+    console.log(this.props.items)
     let containerHeight = this.props.webPartContext.domElement.clientWidth / (this.state.widthToHeight/100);
-    
-    console.log("PowerBiReactReport.render");
+    //console.log("PowerBiReactReport.render");
     return (
+      <>
+      <DetailsListDocumentsExample context={this.props.webPartContext} splistitems={this.props.items}/>
       <div className={styles.powerBiReactReport}  >
         {this.state.loading ? (
           <div id="loading" className={styles.loadingContainer} >Calling to Power BI Service</div> 
@@ -43,6 +55,7 @@ export default class PowerBiReactReport extends React.Component<IPowerBiReactRep
           <div id="embed-container" className={styles.embedContainer} style={{height: containerHeight }} ></div> 
         )}        
       </div>
+      </>
     );
   }
 
@@ -65,5 +78,5 @@ export default class PowerBiReactReport extends React.Component<IPowerBiReactRep
       });
     }
   }
-
+  
 }

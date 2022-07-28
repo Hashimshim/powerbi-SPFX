@@ -7,6 +7,7 @@ export interface IPowerBiReactReportProps {
   defaultWorkspaceId: string;
   defaultReportId: string;
   defaultWidthToHeight: number;
+  items:any;
 }
 
 export interface IPowerBiReactReportState {

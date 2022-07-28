@@ -19,7 +19,12 @@ import { IPowerBiReactReportProps } from './components/IPowerBiReactReportProps'
 
 import { PowerBiWorkspace, PowerBiReport } from './../../models/PowerBiModels';
 import { PowerBiService } from './../../services/PowerBiService';
-
+import { spfi, SPFx,SPFI } from "@pnp/sp";
+import "@pnp/sp/webs";
+import "@pnp/sp/lists";
+import "@pnp/sp/items";
+import "@pnp/sp/items/get-all";
+// ********
 export interface IPowerBiReactReportWebPartProps {
   workspaceId: string;
   reportId: string;
@@ -32,6 +37,17 @@ export default class PowerBiReactReportWebPart extends BaseClientSideWebPart<IPo
 
   private workspaceOptions: IPropertyPaneDropdownOption[];
   private workspacesFetched: boolean = false;
+  private allItems: any[]
+
+  public async getListItems() : Promise<void> {
+    const sp : SPFI= spfi().using(SPFx(this.context)) ;
+    this.allItems = await sp.web.lists.getByTitle("Product").items.getAll();
+    //console.log("The list contains : ", allItems, " elements");
+    this.allItems.map(item =>{
+      console.log(item.Title)
+    })
+  }
+
 
   private fetchWorkspaceOptions(): Promise<IPropertyPaneDropdownOption[]> {
     return PowerBiService.GetWorkspaces(this.context.serviceScope).then((workspaces: PowerBiWorkspace[]) => {
@@ -56,15 +72,17 @@ export default class PowerBiReactReportWebPart extends BaseClientSideWebPart<IPo
     });
   }
 
-  public render(): void {
+  public async render(): Promise<void> {
     console.log("PowerBiReactReportWebPart.render");
+    await this.getListItems();
     const element: React.ReactElement<IPowerBiReactReportProps> = React.createElement(
       PowerBiReactReport, {
         webPartContext: this.context,
         serviceScope: this.context.serviceScope,
         defaultWorkspaceId: this.properties.workspaceId,
         defaultReportId: this.properties.reportId,
-        defaultWidthToHeight: this.properties.widthToHeight
+        defaultWidthToHeight: this.properties.widthToHeight,
+        items:this.allItems
       }
     );
     this.powerBiReactReport = <PowerBiReactReport>ReactDom.render(element, this.domElement);
