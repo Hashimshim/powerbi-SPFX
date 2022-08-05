@@ -133,16 +133,16 @@ export class DetailsListDocumentsExample extends React.Component<IDetailsListDoc
       announcedMessage: undefined,
     };
   }
-  public componentDidMount(): void {
-    const spListItemsss = (this.props.splistitems).map(spitem => {
-      const itemshachim: IDocument[] = [];
-      itemshachim.push({key:spitem.Id,name:spitem.Title,value:spitem.Year})
-      console.log("spitem : " ,itemshachim)
-      return itemshachim
-    }
-    )
-    this._allItems=spListItemsss
-  }
+  // public componentDidMount(): void {
+  //   const spListItemsss = (this.props.splistitems).map(spitem => {
+  //     const itemshachim: IDocument[] = [];
+  //     itemshachim.push({key:spitem.Id,name:spitem.Title,value:spitem.Year})
+  //     console.log("spitem : " ,itemshachim)
+  //     return itemshachim
+  //   }
+  //   )
+  //   this._allItems=spListItemsss
+  // }
 
   public render() {
     const { columns, isCompactMode, items, selectionDetails, isModalSelection, announcedMessage } = this.state;

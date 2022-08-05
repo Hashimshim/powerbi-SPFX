@@ -19,11 +19,15 @@ import "@pnp/sp/items/get-all";
 
 import {DetailsListDocumentsExample}from './DetailList'
 
+import { ListView, IViewField, SelectionMode, GroupOrder, IGrouping } from "@pnp/spfx-controls-react/lib/ListView";
 export default class PowerBiReactReport extends React.Component<IPowerBiReactReportProps, IPowerBiReactReportState> {
 
+  private viewFields : IViewField[];
   constructor(props: IPowerBiReactReportProps) {
     super(props);
-  
+   this.viewFields = [{name: "Id",displayName: "Id",isResizable: true,sorting: true,  minWidth: 0,maxWidth: 150 },
+   {name: "Title",displayName: "Title",isResizable: true,sorting: true,  minWidth: 0,maxWidth: 150 },
+   {name: "Year",displayName: "Year",isResizable: true,sorting: true,  minWidth: 0,maxWidth: 150 }]
   }
  // const [selectedKeys, setSelectedKeys] = React.useState<string[]>([]);
 
@@ -38,14 +42,27 @@ export default class PowerBiReactReport extends React.Component<IPowerBiReactRep
     return ((this.state.workspaceId === undefined) || (this.state.workspaceId === "")) ||
       ((this.state.reportId === undefined) || (this.state.reportId === ""));
   }
-
+  private _getSelection(items: any[]) {    
+    console.log('Selected items:', items);    
+  }    
   public render(): React.ReactElement<IPowerBiReactReportProps> {
     console.log(this.props.items)
     let containerHeight = this.props.webPartContext.domElement.clientWidth / (this.state.widthToHeight/100);
     //console.log("PowerBiReactReport.render");
     return (
       <>
-      <DetailsListDocumentsExample context={this.props.webPartContext} splistitems={this.props.items}/>
+      {/* <DetailsListDocumentsExample context={this.props.webPartContext} splistitems={this.props.items}/> */}
+      <ListView
+  items={this.props.items}
+  viewFields={this.viewFields}
+  compact={true}
+  selection={this._getSelection}
+  selectionMode={SelectionMode.multiple}
+  showFilter={true}
+  filterPlaceHolder="Search..."
+  dragDropFiles={true}
+  stickyHeader={true}
+   />
       <div className={styles.powerBiReactReport}  >
         {this.state.loading ? (
           <div id="loading" className={styles.loadingContainer} >Calling to Power BI Service</div> 
